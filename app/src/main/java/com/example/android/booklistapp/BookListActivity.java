@@ -78,15 +78,15 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
                 mQuerySearch = searchEditText.getText().toString().replaceAll(" ", "+");
                 if(mQuerySearch.isEmpty()){
                     Toast.makeText(BookListActivity.this, "Can't find book.", Toast.LENGTH_SHORT).show();
+                    mEmptyStateTextView.setText("No books found");
+                } else{
+                    GOOGLE_BOOK_URL = GOOGLE_BOOK_URL + mQuerySearch;
+                    // Restart the loader.
+                    getLoaderManager().restartLoader(1, null, BookListActivity.this);
+                    GOOGLE_BOOK_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+                    mBookListAdapter = new BookListAdapter(BookListActivity.this, new ArrayList<Book>());
+                    bookListView.setAdapter(mBookListAdapter);
                 }
-
-                GOOGLE_BOOK_URL = GOOGLE_BOOK_URL + mQuerySearch;
-                // Restart the loader.
-                getLoaderManager().restartLoader(1, null, BookListActivity.this);
-                GOOGLE_BOOK_URL = "https://www.googleapis.com/books/v1/volumes?q=";
-                mBookListAdapter = new BookListAdapter(BookListActivity.this, new ArrayList<Book>());
-                bookListView.setAdapter(mBookListAdapter);
-
             }
         });
 
@@ -112,11 +112,8 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
             loadingIndicator.setVisibility(View.GONE);
 
             //Update empty state with no connection error message
-            mEmptyStateTextView.setText("No Internet Connection");
+            mNoInternetConnection.setText("No Internet Connection");
         }
-
-        //Set an item click listener on the ListView, which sends an intent to a web browser
-        //to open a website with more information about the selected book.
     }
 
     @Override
@@ -130,16 +127,14 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
         View loadingIndicator = findViewById(R.id.progress_bar);
         loadingIndicator.setVisibility(View.GONE);
 
-        //Set empty state text to display "No books found."
-        mEmptyStateTextView.setText("No books found");
-
-        //clear the adapter of previous data
-        mBookListAdapter.clear();
-
         //If there is a valid list of {@link Book}, then add them to the adapter's
         //data set. This will trigger the ListView to update.
         if(data != null && !data.isEmpty()){
             mBookListAdapter.addAll(data);
+
+        }else{
+            //clear the adapter of previous data
+            mBookListAdapter.clear();
         }
     }
 
