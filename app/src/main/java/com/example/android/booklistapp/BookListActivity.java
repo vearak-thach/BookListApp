@@ -76,9 +76,9 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
             @Override
             public void onClick(View view) {
                 mQuerySearch = searchEditText.getText().toString().replaceAll(" ", "+");
+
                 if(mQuerySearch.isEmpty()){
-                    Toast.makeText(BookListActivity.this, "Can't find book.", Toast.LENGTH_SHORT).show();
-                    mEmptyStateTextView.setText("No books found");
+                    Toast.makeText(BookListActivity.this, "Enter keyword to search book.", Toast.LENGTH_SHORT).show();
                 } else{
                     GOOGLE_BOOK_URL = GOOGLE_BOOK_URL + mQuerySearch;
                     // Restart the loader.
@@ -112,7 +112,7 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
             loadingIndicator.setVisibility(View.GONE);
 
             //Update empty state with no connection error message
-            mNoInternetConnection.setText("No Internet Connection");
+            mNoInternetConnection.setText("Check Internet Connection");
         }
     }
 
@@ -135,6 +135,8 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
         }else{
             //clear the adapter of previous data
             mBookListAdapter.clear();
+
+            mEmptyStateTextView.setText("No books found");
         }
     }
 

@@ -39,15 +39,15 @@
 
         <TextView
             android:id="@+id/no_internet_connection"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_center = "true" />
+            android:layout_centerInParent = "true" />
 
         <TextView
             android:id="@+id/empty_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_center = "true" />
+            android:layout_centerInParent = "true" />
 
     </LinearLayout>
 
