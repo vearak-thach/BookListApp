@@ -1,8 +1,6 @@
 package com.example.android.booklistapp;
 
 import android.app.Activity;
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +25,6 @@ public class BookListAdapter extends ArrayAdapter<Book> {
         //going to use this second argument, so it an be any value. Here, we used 0.
         super(context, 0, books);
     }
-
-    //Method to format the author display
 
     /**
      *
@@ -55,7 +51,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
 
         //Find the TextView in the book_per_list_item.xml layout with the ID author
         TextView authorTextView = (TextView) listItemView.findViewById(R.id.author);
-        authorTextView.setText(currentBook.getTitle());
+        authorTextView.setText(currentBook.getAuthor());
 
         //Find the TextView in the book_per_list_item.xml layout with the ID image
         //Add picasso for the image parsing

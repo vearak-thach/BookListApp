@@ -35,7 +35,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textSize="12sp"
-            tools:text="Authors: P.K. Dixit" />
+            tools:text= "Authors: P.K. Dixit" />
 
     </LinearLayout>
 

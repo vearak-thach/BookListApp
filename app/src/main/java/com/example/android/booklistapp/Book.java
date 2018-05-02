@@ -6,25 +6,25 @@ package com.example.android.booklistapp;
 
 public class Book {
     private String title;
-    private String authors;
+    private String author;
     private String image;
 
     /**
      * Constructs a new {@link Book} object
      * @param title
-     * @param authors
+     * @param author
      * @param image
      */
 
-    public Book(String title, String authors, String image){
+    public Book(String title, String author, String image){
         this.title = title;
-        this.authors = authors;
+        this.author = author;
         this.image = image;
     }
 
     public String getTitle(){return title;}
 
-    public String getAuthors(){return authors;}
+    public String getAuthor(){return author;}
 
     public String getImage(){return image; }
 }

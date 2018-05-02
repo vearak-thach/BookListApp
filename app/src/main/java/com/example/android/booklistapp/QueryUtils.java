@@ -67,7 +67,7 @@ public final class QueryUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding earthquakes to
+        // Create an empty ArrayList that we can start adding books to the ArrayList
         List<Book> books = new ArrayList<>();
 
         // Try to parse the JSON response string. If there's a problem with the way the JSON
@@ -85,7 +85,7 @@ public final class QueryUtils {
             // For each book in the bookArray, create an {@link Book} object
             for (int i = 0; i < bookArray.length(); i++) {
 
-                // Get a single earthquake at position i within the list of earthquakes
+                // Get a single book at position i within the list of books
                 JSONObject currentBook = bookArray.getJSONObject(i);
 
                 // For a given volumeInfo, extract the JSONObject associated with the
@@ -95,16 +95,29 @@ public final class QueryUtils {
                 // Extract the value for the key called "title"
                 String title = volumeInfo.getString("title");
 
-                // Extract the value for the key called "place"
-                String authors = volumeInfo.getString("authors");
+                // Extract the value for the key called "authors"
+                String completeBookAuthors = " ";
+                if(volumeInfo.has("authors")){
+                    JSONArray bookAuthors = volumeInfo.getJSONArray("authors");
+
+                    for(int j = 0; j < bookAuthors.length(); j++) {
+                        if (bookAuthors.equals(null)) {
+                            completeBookAuthors = "Author Unavailable";}
+                            else if (bookAuthors.length() == 1){
+                            completeBookAuthors = bookAuthors.getString(j);
+                        }else {
+                            completeBookAuthors += " | " + bookAuthors.getString(j) + " | ";
+                        }
+                    }
+                }
 
                 //JSON parsing for imagelink
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
                 String thumbnail = imageLinks.getString("thumbnail");
 
-                // Create a new {@link Book} object with the title, author(s), time,
+                // Create a new {@link Book} object with the title, author(s), picture,
                 // and url from the JSON response.
-                Book book = new Book(title, authors, thumbnail);
+                Book book = new Book(title, completeBookAuthors, thumbnail);
 
                 // Add the new {@link Book} to the list books.
                 books.add(book);
@@ -117,7 +130,7 @@ public final class QueryUtils {
             Log.e("QueryUtils", "Problem parsing the book JSON results", e);
         }
 
-        // Return the list of earthquakes
+        // Return the list of books
         return books;
     }
 
