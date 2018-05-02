@@ -1,19 +1,12 @@
 package com.example.android.booklistapp;
 
-import android.app.Activity;
-import android.app.DownloadManager;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Loader;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,9 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +58,13 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
         //set the adapter on the {@link ListView} so the list can be populated in the user interface
         bookListView.setAdapter(mBookListAdapter);
 
+        //Create a search view
         final EditText searchEditText = (EditText) findViewById(R.id.search_edit_text);
 
+        //Create a search button
         final Button searchButton = (Button) findViewById(R.id.search_button);
 
+        //Allow the user to query search a book
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,8 +104,8 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
             View loadingIndicator = findViewById(R.id.progress_bar);
             loadingIndicator.setVisibility(View.GONE);
 
-            //Update empty state with no connection error message
-            mNoInternetConnection.setText("Check Internet Connection");
+            //Update empty state set when no Internet connection
+            mNoInternetConnection.setText("No Internet connection.");
         }
     }
 
@@ -136,7 +129,7 @@ public class BookListActivity extends AppCompatActivity implements LoaderManager
             //clear the adapter of previous data
             mBookListAdapter.clear();
 
-            mEmptyStateTextView.setText("No books found");
+            mEmptyStateTextView.setText("No books found. Enter keyword or check Internet connection.");
         }
     }
 
